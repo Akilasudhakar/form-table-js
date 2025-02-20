@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="
+https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css
+" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class=" text-center grid justify-center align-middle">
+        <fieldset class="border border-black mt-5 p-5 rounded">
+            <h1 class="text-2xl font-bold mt-5">Student Form</h1>
+            <table id="table1" class="mt-5">
+                <tr>
+                    <td class="font-bold pr-4">Name:</td>
+
+                    <td>
+                        <input id="inputbox1" class="border border-black m-2 w-100" type="text"
+                            placeholder=" Enter the Name">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="font-bold pr-4">Age:</td>
+                    <td>
+                        <input id="inputbox2" class="border border-black m-2 w-100" type="number"
+                            placeholder=" Enter the Age">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="font-bold pr-4">Gender:</td>
+                    <td>
+                        <input class="mr-1" type="radio" name="Gender">Female
+                        <input class="ml-4 mr-1" type="radio" name="Gender">Male
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="font-bold pr-4">Course:</td>
+                    <td>
+                        <select id="courseSelect" class="border border-black m-2 w-45">
+                            <option class="border border-black ">Java</option>
+                            <option class="border border-black  ">JavaScript Programming</option>
+                            <option class="border border-black  ">ReactJS</option>
+                            <option class="border border-black ">MongoDB</option>
+                            <option class="border border-black ">PowerBI</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="font-bold pr-4">Email:</td>
+                    <td>
+                        <input id="inputbox3" class="border border-black m-2 w-100" type="email"
+                            placeholder="Enter the Emai ID">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center pt-4">
+                        <button id="btn"
+                            class="bg-black text-white font-bold px-2 w-40 rounded border-4 border-black">Save</button>
+                    </td>
+                </tr>
+
+            </table>
+        </fieldset>
+    </div>
+
+
+
+    <div class="  bg-white p-6  mt-5 ">
+        <h1 class="text-2xl font-bold text-center mb-4">Student Information</h1>
+
+        <div class="flex justify-center">
+            <table id="taable2" class="border-collapse border border-gray-500 w-full text-center">
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-500 px-4 py-2">Name</th>
+                    <th class="border border-gray-500 px-4 py-2">Age</th>
+                    <th class="border border-gray-500 px-4 py-2">Course</th>
+                    <th class="border border-gray-500 px-4 py-2">Email</th>
+                    <th id="action" class="border border-gray-500 px-4 py-2">Action</th>
+                </tr>
+                <tr class="bg-white hover:bg-gray-300">
+                    <td class="border border-gray-500 px-4 py-2">John Doe</td>
+                    <td class="border border-gray-500 px-4 py-2">22</td>
+                    <td class="border border-gray-500 px-4 py-2">ReactJS</td>
+                    <td class="border border-gray-500 px-4 py-2">john@example.com</td>
+                    <td class="border border-gray-500 px-4 py-2">delete</td>
+                </tr>
+                <tr class="bg-gray-100 hover:bg-gray-300">
+                    <td class="border border-gray-500 px-4 py-2">Jane Smith</td>
+                    <td class="border border-gray-500 px-4 py-2">21</td>
+                    <td class="border border-gray-500 px-4 py-2">MongoDB</td>
+                    <td class="border border-gray-500 px-4 py-2">jane@example.com</td>
+                    <td class="border border-gray-500 px-4 py-2">delete</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+
+
+
+<script>
+    var inputbox1 = document.getElementById("inputbox1");
+    var inputbox2 = document.getElementById("inputbox2");
+    var inputbox3 = document.getElementById("inputbox3");
+    var courseSelect = document.querySelector("select");
+    var btn = document.getElementById("btn");
+    var table2 = document.getElementById("taable2");
+
+    // Function to add delete button to rows
+    function addDeleteButton(row) {
+        var td = document.createElement("td");
+        td.className = "border border-gray-500 px-4 py-2 text-center";
+
+        var deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.className = "bg-red-500 text-white px-2 py-1 rounded";
+
+        deleteBtn.addEventListener("click", function () {
+            row.remove();
+        });
+
+        td.appendChild(deleteBtn);
+        row.appendChild(td);
+    }
+
+    // Add delete button to existing rows
+    document.querySelectorAll("#taable2 tr").forEach((row, index) => {
+        if (index !== 0) { // Skip header row
+            var actionCell = row.lastElementChild;
+            if (actionCell.textContent.trim().toLowerCase() === "delete") {
+                var deleteBtn = document.createElement("button");
+                deleteBtn.textContent = "Delete";
+                deleteBtn.className = " text-black px-2 py-1 rounded";
+                deleteBtn.addEventListener("click", function () {
+                    row.remove();
+                });
+
+                actionCell.textContent = ""; // Clear text and replace with button
+                actionCell.appendChild(deleteBtn);
+            }
+        }
+    });
+
+    btn.addEventListener("click", function () {
+        if (inputbox1.value === "" || inputbox2.value === "" || inputbox3.value === "") {
+            alert("Please fill in all fields!");
+            return;
+        }
+
+        var tr = document.createElement("tr");
+        tr.className = "bg-white hover:bg-gray-300";
+
+        var td1 = document.createElement("td");
+        td1.className = "border border-gray-500 px-4 py-2";
+        td1.textContent = inputbox1.value;
+
+        var td2 = document.createElement("td");
+        td2.className = "border border-gray-500 px-4 py-2";
+        td2.textContent = inputbox2.value;
+
+        var td3 = document.createElement("td");
+        td3.className = "border border-gray-500 px-4 py-2";
+        td3.textContent = courseSelect.value; // Add selected course
+
+        var td4 = document.createElement("td");
+        td4.className = "border border-gray-500 px-4 py-2";
+        td4.textContent = inputbox3.value;
+
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+
+        addDeleteButton(tr); // Add delete button
+
+        table2.appendChild(tr);
+
+        // Clear input fields
+        inputbox1.value = "";
+        inputbox2.value = "";
+        inputbox3.value = "";
+        courseSelect.selectedIndex = 0;
+    });
+</script>
